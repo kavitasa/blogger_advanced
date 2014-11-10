@@ -28,6 +28,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find params[:id]
     if @article.update_attributes(article_params)
+			ArticleMailer.article_updated_email(@article).deliver
       flash[:notice] = "Article was updated."
       redirect_to article_path(@article)
     else
