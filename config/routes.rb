@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
 
   root to: 'dashboard#show'
+
+  get '/404' => 'errors#not_found'
+  get '/422' => 'errors#unprocessable'
+  get '/500' => 'errors#server_error'
 end
