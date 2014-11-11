@@ -1,6 +1,11 @@
 class ArticlesController < ApplicationController
   def show
-    @article = Article.find(params[:id])
+    begin
+      @article = Article.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "sorry, that article ain't here"
+      redirect_to articles_path
+    end
   end
 
   def index
@@ -41,11 +46,10 @@ class ArticlesController < ApplicationController
     flash[:notice] = "#{article} was destroyed."
     redirect_to articles_path
   end
-  
+
   private
 
   def article_params
     params.require(:article).permit(:title, :body, :author_id)
   end
-  
 end
