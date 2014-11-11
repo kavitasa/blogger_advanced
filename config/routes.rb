@@ -10,5 +10,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
+	get "/404" => "errors#not_found"
+	get "/500" => "errors#server_error"
+
   root to: 'dashboard#show'
 end
